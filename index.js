@@ -4,11 +4,11 @@ import conn from "./server.js";
 import pageRoute from "./routes/pageRoute.js";
 import couseRoute from "./routes/courseRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
-
-dotenv.config();
+import userRoute from "./routes/userRoute.js";
 
 const app = express();
 
+dotenv.config();
 conn();
 
 // Template Engine
@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/', pageRoute);
 app.use('/courses', couseRoute);
 app.use('/categories', categoryRoute);
-
+app.use('/users', userRoute);
 
 const PORT = process.env.PORT;
 
