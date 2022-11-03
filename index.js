@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import conn from "./server.js";
 import pageRoute from "./routes/pageRoute.js";
+import couseRoute from "./routes/courseRoute.js";
+import categoryRoute from "./routes/categoryRoute.js";
 
 dotenv.config();
 
@@ -19,6 +21,9 @@ app.use(express.urlencoded({extended:true}));
 
 // Routes
 app.use('/', pageRoute);
+app.use('/courses', couseRoute);
+app.use('/categories', categoryRoute);
+
 
 const PORT = process.env.PORT;
 
