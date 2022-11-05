@@ -1,6 +1,6 @@
 import express from "express";
 import * as pageController from "../controllers/pageController.js";
-import * as redirectMiddleware from "../middlewares/redirectMiddleware.js";
+import redirectMiddleware from "../middlewares/redirectMiddleware.js";
 
 const router = express.Router();
 
