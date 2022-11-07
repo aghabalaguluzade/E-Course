@@ -23,7 +23,11 @@ const  userSchema = new Schema({
           type : String,
           enum : ["student", "teacher", "admin"],
           default : "student"
-     }
+     },
+     courses : [{
+          type : mongoose.Schema.Types.ObjectId,
+          ref : "Course"
+     }]
 });
 
 userSchema.pre("save", function(next) {
@@ -32,6 +36,7 @@ userSchema.pre("save", function(next) {
           user.password = hash;
           next();
      });
+     if(!user.isModified('password')) return next();
 });
 
 const User = mongoose.model('User', userSchema);

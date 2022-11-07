@@ -2,7 +2,6 @@ const getIndexPage = (req,res) => {
      res.status(200).render("index", {
           page_name : "index"
      });
-     console.log(req.session.userId);
 };
 
 const getAboutPage = (req,res) => {

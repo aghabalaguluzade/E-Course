@@ -23,6 +23,18 @@
 								<span class="day">30</span>
 								<span class="month">Nov</span>
 							</div>
+							<div class="post-date mr-2">
+
+								<% if(user && (!user.courses.includes(course._id))) { %>
+
+								<form action="/courses/enroll" method="POST">
+									<input type="hidden" name="course_id" value="<%= course._id %>" />
+									<button type="submit" class="btn btn-md btn-warning text-white"><span>Enroll</span></button>
+								</form>
+
+								<% } %>
+
+							</div>
 							<div class="meta-info-blog">
 								<span><i class="fa fa-calendar"></i> <a href="#"><%= course.createdAt %></a></span>
 							</div>
@@ -42,31 +54,25 @@
 							<h3 class="author_name"><a href="#"><%= course.user.name %></a></h3>
 						</div>
 					</div>
-					
                 </div><!-- end col -->
-				<div class="col-lg-3 col-12 right-single">
-					<div class="widget-search">
-						<div class="site-search-area">
-							<form method="get" id="site-searchform" action="#">
-								<div>
-									<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-									<input id="searchsubmit" value="Search" type="submit">
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="widget-categories">
-						<h3 class="widget-title">Categories</h3>
-						<ul>
-							<li><a href="#">Political Science</a></li>
-							<li><a href="#">Business Leaders Guide</a></li>
-							<li><a href="#">Become a Product Manage</a></li>
-							<li><a href="#">Language Education</a></li>
-							<li><a href="#">Micro Biology</a></li>
-							<li><a href="#">Social Media Management</a></li>
-						</ul>
+			 <div class="col-lg-3 col-12 right-single">
+				<div class="widget-search">
+					<div class="site-search-area">
+						<form action="/courses" method="GET" id="site-searchform">
+							<div>
+								<input class="input-text form-control" name="search" id="search-k" placeholder="Search..." type="search" />
+								<button id="searchsubmit" value="Search" type="submit"></button>
+							</div>
+						</form>
 					</div>
 				</div>
+				<div class="widget-categories">
+					<h3 class="widget-title">Categories</h3>
+					<ul>
+						<li><a href="/courses?categories=<%= category.slug %>"><%= category.name %></a></li>						
+					</ul>
+				</div>
+			 </div>
             </div><!-- end row -->
         </div><!-- end container -->
     </div><!-- end section -->

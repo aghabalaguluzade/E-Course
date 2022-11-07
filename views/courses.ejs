@@ -20,7 +20,9 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="course-item mb-5">
 						<div class="image-blog">
-							<img src="/images/blog_2.jpg" alt="<%= course.name %>" class="img-fluid" />
+							<a href="/courses/<%= course.slug %>">
+								<img src="/images/blog_2.jpg" alt="<%= course.name %>" class="img-fluid" />
+							</a>
 						</div>
 						<div class="course-br">
 							<div class="course-title">
@@ -32,7 +34,7 @@
 						</div>
 						<div class="course-meta-bot">
 							<ul>
-								<li><i class="fa fa-user" aria-hidden="true"></i>Teacher Name</li>
+								<li><i class="fa fa-user" aria-hidden="true"></i><%= course.user.name %></li>
 							</ul>
 						</div>
 					</div>
@@ -46,10 +48,10 @@
 				<div class="col-lg-3 col-12 right-single">
 					<div class="widget-search">
 						<div class="site-search-area">
-							<form method="get" id="site-searchform" action="#">
+							<form action="/courses" method="GET" id="site-searchform">
 								<div>
-									<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-									<input id="searchsubmit" value="Search" type="submit">
+									<input class="input-text form-control" name="search" id="search-k" placeholder="Search..." type="search" />
+									<button id="searchsubmit" value="Search" type="submit"></button>
 								</div>
 							</form>
 						</div>
@@ -71,3 +73,4 @@
 
 
     <%- include("partials/_footer.ejs") %>
+
