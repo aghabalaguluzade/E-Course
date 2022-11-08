@@ -32,7 +32,8 @@ const getContactPage = (req,res) => {
 
 const sendEmail = async (req,res) => {
 
-     const outputMessage = `
+     try {
+          const outputMessage = `
           <h1>Mail Details</h1>
           <ul>
                <li>Name : ${req.body.name}</li>
@@ -42,27 +43,32 @@ const sendEmail = async (req,res) => {
           <p>${req.body.message}</p>
      `;
 
-     // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-     host: "smtp.gmail.com",
-     port: 465,
-     secure: true, // true for 465, false for other ports
-     auth: {
-       user: process.env.USER_GMAIL, // generated gmail user
-       pass: process.env.PASSWORD_GMAIL, // generated gmail password
-     },
-   });
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+               host: "smtp.gmail.com",
+               port: 465,
+               secure: true, // true for 465, false for other ports
+               auth: {
+               user: process.env.USER_GMAIL, // generated gmail user
+               pass: process.env.PASSWORD_GMAIL, // generated gmail password
+               },
+          });
 
 
-   // send mail with defined transport object
-  let info = await transporter.sendMail({
-     from: `"E-Course Contact Form" aghabalaguluzade@gmail.com`, // sender address
-     to: `${process.env.USER_GMAIL}`, // list of receivers
-     subject: "E-Course Form New Message", // Subject line
-     html: outputMessage, // html body
-   });
+          // send mail with defined transport object
+          let info = await transporter.sendMail({
+               from: `"E-Course Contact Form" aghabalaguluzade@gmail.com`, // sender address
+               to: `${process.env.USER_GMAIL}`, // list of receivers
+               subject: "E-Course Form New Message", // Subject line
+               html: outputMessage, // html body
+          });
 
-   res.status(200).redirect("/contact");
+          req.flash("success", "We received your message successfully");
+          res.status(200).redirect("/contact");
+     } catch (error) {
+          req.flash("success", `Something happend ${error}!`);
+          res.status(400).redirect("/contact");
+     };
 
 };
 
