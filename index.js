@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import session from "express-session";
 import flash from "connect-flash";
 import MongoStore from 'connect-mongo';
+import methodOverride from "method-override";
 import conn from "./server.js";
 import pageRoute from "./routes/pageRoute.js";
 import couseRoute from "./routes/courseRoute.js";
@@ -35,6 +36,9 @@ app.use((req,res,next) => {
      res.locals.flashMessages = req.flash();
      next();
 });
+app.use(methodOverride("_method", {
+     methods : ["POST", "GET"]
+}));
 
 // Routes
 app.use('*',(req,res,next) => {

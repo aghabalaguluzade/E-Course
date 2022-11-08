@@ -32,11 +32,11 @@ const  userSchema = new Schema({
 
 userSchema.pre("save", function(next) {
      const user = this;
+     if(!user.isModified('password')) return next();
      bcrypt.hash(user.password,10,(err,hash) => {
           user.password = hash;
           next();
      });
-     if(!user.isModified('password')) return next();
 });
 
 const User = mongoose.model('User', userSchema);
