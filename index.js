@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import session from "express-session";
+import flash from "connect-flash";
 import MongoStore from 'connect-mongo';
 import conn from "./server.js";
 import pageRoute from "./routes/pageRoute.js";
@@ -29,6 +30,11 @@ app.use(session({
      saveUninitialized : true,
      store: MongoStore.create({ mongoUrl: process.env.DB_URL })
 }));
+app.use(flash());
+app.use((req,res,next) => {
+     res.locals.flashMessages = req.flash();
+     next();
+});
 
 // Routes
 app.use('*',(req,res,next) => {
