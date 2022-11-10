@@ -1,5 +1,5 @@
 # e-course
-E-Course Node,js site - https://e-course-project.herokuapp.com/
+E-Course Node,js site - https://e-course-project.herokuapp.com
 ## Concepts I learned and used in this project
  - Flash mesajlar
  - Kullanıcı kontrolü ve doğrulama
