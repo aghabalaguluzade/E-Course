@@ -20,8 +20,8 @@
 						</div>
 						<div class="post-content">
 							<div class="post-date">
-								<span class="day">30</span>
-								<span class="month">Nov</span>
+								<span class="day"><%= course.createdAt.toLocaleDateString("az-AZ", { day : "numeric" }) %></span>
+								<span class="month"><%= course.createdAt.toLocaleDateString("az-AZ", { month : "short" }).toUpperCase() %></span>
 							</div>
 							<div class="post-date mr-2">
 
@@ -36,7 +36,7 @@
 
 							</div>
 							<div class="meta-info-blog">
-								<span><i class="fa fa-calendar"></i> <a href="#"><%= course.createdAt %></a></span>
+								<span style="color: purple;"><i class="fa fa-calendar mr-2"></i><%= course.createdAt.toLocaleDateString("az-AZ", { day: 'numeric' }) + "-"+ course.createdAt.toLocaleDateString("az-AZ", { month: 'short' })+ "-" + course.createdAt.toLocaleDateString("az-AZ", { year: 'numeric' }) %></span>
 							</div>
 							<div class="blog-title">
 								<h2><a href="#" title=""><%= course.name %></a></h2>
@@ -69,7 +69,9 @@
 				<div class="widget-categories">
 					<h3 class="widget-title">Categories</h3>
 					<ul>
-						<li><a href="/courses?categories=<%= category.slug %>"><%= category.name %></a></li>						
+						<% for(category of categories) { %>
+						<li><a href="/courses?categories=<%= category.slug %>"><%= category.name %></a></li>
+						<% } %>						
 					</ul>
 				</div>
 			 </div>

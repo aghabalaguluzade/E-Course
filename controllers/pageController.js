@@ -1,13 +1,25 @@
 import nodemailer from "nodemailer";
+import Course from "../models/Course.js";
+import User from "../models/User.js";
 
-const getIndexPage = (req,res) => {
+const getIndexPage = async (req,res) => {
+     const courses = await Course.find().sort("-createdAt").limit(2);
+     const totalCourses = await Course.find().countDocuments();
+     const totalStudents = await User.countDocuments({ role : "student" });
+     const totalTeachers = await User.countDocuments({ role : "teacher" });
      res.status(200).render("index", {
+          courses,
+          totalCourses,
+          totalStudents,
+          totalTeachers,
           page_name : "index"
      });
 };
 
-const getAboutPage = (req,res) => {
+const getAboutPage = async (req,res) => {
+     const courses = await Course.find().sort("-createdAt").limit(2);
      res.status(200).render("about", {
+          courses,
           page_name : "about"
      });
 };

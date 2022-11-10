@@ -51,19 +51,35 @@ const logoutUser = (req,res) => {
 
 const getDashboardPage = async (req,res) => {
      const user = await User.findOne({_id : req.session.userId}).populate("courses");
+     const users = await User.find();
      const categories = await Category.find();
-     const courses = await Course.find({ user : req.session.userId });
+     const courses = await Course.find({ user : req.session.userId }).sort("-createdAt");
      res.status(200).render("dashboard", {
           page_name : "dashboard",
           user,
+          users,
           categories,
           courses
      });
+};
+
+const deleteUser = async (req,res) => {
+     try {
+       await User.findByIdAndDelete(req.params.id);
+       await Course.deleteMany({ user : req.params.id });
+       res.status(200).redirect("/users/dashboard");
+     } catch (error) {
+          res.status(400).json({
+               status : "fail",
+               error
+          });
+     };
 };
 
 export {
      createUser,
      loginUser,
      logoutUser,
-     getDashboardPage
+     getDashboardPage,
+     deleteUser
 };

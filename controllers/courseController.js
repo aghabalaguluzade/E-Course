@@ -61,9 +61,11 @@ const getCourse = async (req,res) => {
      try {
           const course = await Course.findOne({slug : req.params.slug}).populate('user');
           const user = await User.findById(req.session.userId);
+          const categories = await Category.find();
           res.status(200).render("course", {
                course,
-               user,  
+               user,
+               categories,
                page_name : "courses"
           });      
      } catch (error) {
@@ -115,11 +117,28 @@ const deleteCourse = async (req,res) => {
      };
 };
 
+const updateCourse = async (req,res) => {
+     try {
+       const course = await Course.findOne({ slug : req.params.slug });
+       course.name = req.body.name;
+       course.description = req.body.description;
+       course.category = req.body.category;
+       course.save();
+       res.status(200).redirect('/users/dashboard');   
+     } catch (error) {
+          res.status(400).json({
+               status : "fail",
+               error
+          });
+     };
+};
+
 export {
      createCourse,
      getAllCourse,
      getCourse,
      enrollCourse,
      releaseCourse,
-     deleteCourse
+     deleteCourse,
+     updateCourse
 };
